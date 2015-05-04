@@ -39,9 +39,6 @@ var Graph = React.createClass({
       chart: {
         type: 'scatter',
         zoomType: 'xy',
-        events: {
-          click: this.props.onClick
-        }
       },
       yAxis: {
         min: graph.chartInfo.minY,
@@ -58,6 +55,12 @@ var Graph = React.createClass({
 
     if (lineSeries) {
       config.series.push(lineSeries);
+    }
+
+    if (this.props.onClick) {
+      config.chart.events = {
+        click: this.props.onClick
+      };
     }
 
     return (
