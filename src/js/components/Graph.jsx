@@ -10,7 +10,7 @@ var Graph = React.createClass({
     );
   },
   _getChartConfig: function() {
-    var {lineIndex, graph} = this.props;
+    var graph = this.props.graph;
     var pointsAsArrays = this.props.graph.points.map((point) => [point.xPos, point.yPos]);
     var lineSeries = this._getLineSeries();
     var config = {
@@ -43,9 +43,9 @@ var Graph = React.createClass({
     return config;
   },
   _getLineSeries: function() {
-    var {lineIndex, graph} = this.props;
-    if (lineIndex || lineIndex === 0) {
-      var line = graph.lines[lineIndex];
+    var graph = this.props.graph;
+    var line = _.last(this.props.graph.lines);
+    if (line) {
       var linePointOneY= getValueOnLine(line.constant, line.slope, graph.chartInfo.minX);
       var linePointTwoY = getValueOnLine(line.constant, line.slope, graph.chartInfo.maxX);
 

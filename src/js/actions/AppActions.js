@@ -10,11 +10,11 @@ var AppActions = {
       }
     });
   },
-  selectLine: function(lineIndex) {
+  setGraphHistoryOpenState: function(isOpen) {
     AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.SELECT_LINE,
+      actionType: Constants.ACTIONS.SET_GRAPH_HISTORY_OPEN_STATE,
       payload: {
-        lineIndex: lineIndex
+        isOpen: isOpen
       }
     });
   }

@@ -1,10 +1,21 @@
 @import 'foundation';
+@import '../variables';
+$navbar-padding: 0.9375em;
 
 .navbar {
   @extend .top-bar;
+  color: $navbar-font-color;
 
   &__title {
-    color: #FFFFFF;
-    padding-left: 0.9375em;
+    padding-left: $navbar-padding;
+  }
+
+  &__actions {
+    padding-right: $navbar-padding;
+    float: right;
+  }
+
+  &__action {
+    padding-left: $navbar-padding;
   }
 }

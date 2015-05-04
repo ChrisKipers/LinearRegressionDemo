@@ -1,12 +1,14 @@
 @import '../variables';
 
-.graphlist {
+.graphhistory {
 
   &__item {
     position: relative;
     padding: 10px;
+    display: inline-block;
     > div:not(.graphlist__item__capturediv) {
       height: $graphlist__item-height;
+      width: 250px;
     }
     &:hover {
       background: $hover-and-selected-color;

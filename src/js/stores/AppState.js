@@ -35,7 +35,6 @@ var AppState = assign({}, EventEmitter.prototype, {
         var graphs = GraphStore.getGraphs();
         var newGraph = _.last(graphs);
         state.currentGraphId = newGraph.id;
-        setCurrentLineIndex();
         AppState.emitChange();
         break;
       case Constants.ACTIONS.REMOVE_GRAPH:
@@ -43,22 +42,20 @@ var AppState = assign({}, EventEmitter.prototype, {
         var nextCurrentGraphId = getCurrentGraphIdAfterRemoveEvent();
         var shouldEmitChange = nextCurrentGraphId !== state.currentGraphId;
         state.currentGraphId = nextCurrentGraphId;
-        setCurrentLineIndex();
         if (shouldEmitChange) {
           AppState.emitChange();
         }
         break;
       case Constants.ACTIONS.SELECT_GRAPH:
         state.currentGraphId = action.payload.graphId;
-        setCurrentLineIndex();
+        state.showGraphHistory = false;
         AppState.emitChange();
         break;
       case Constants.ACTIONS.ADD_LINE:
-        setCurrentLineIndex();
         AppState.emitChange();
         break;
-      case Constants.ACTIONS.SELECT_LINE:
-        state.currentLineIndex = action.payload.lineIndex;
+      case Constants.ACTIONS.SET_GRAPH_HISTORY_OPEN_STATE:
+        state.showGraphHistory = action.payload.isOpen;
         AppState.emitChange();
         break;
     }
@@ -80,16 +77,6 @@ function getCurrentGraphIdAfterRemoveEvent() {
     return graphs[0].id;
   } else {
     return null;
-  }
-
-}
-
-function setCurrentLineIndex() {
-  var currentGraph = GraphStore.getGraphById(state.currentGraphId);
-  if (currentGraph && currentGraph.lines.length) {
-    state.currentLineIndex = currentGraph.lines.length - 1;
-  } else {
-    state.currentLineIndex = null;
   }
 }
 

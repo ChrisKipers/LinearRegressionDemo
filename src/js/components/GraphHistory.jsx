@@ -10,24 +10,21 @@ var AppActions = require('../actions/AppActions');
 
 var GraphList = React.createClass({
   render: function() {
-    var dimensions = _.pick(this.props, 'width', 'height', 'radius');
     var graphComponents = this.props.graphs.map((graph) => {
       var classes = cx({
-        'graphlist__item': true,
-        'graphlist__item--selected': graph.id === this.props.currentGraphId
+        'graphhistory__item': true,
+        'graphhistory__item--selected': graph.id === this.props.currentGraphId
       });
       return (
         <li key={graph.id}  className={classes}>
-          <Graph graph={graph} {...dimensions}/>
-          <div className="graphlist__item__capturediv" onClick={this._selectGraph} data-graph-id={graph.id} />
+          <Graph graph={graph} />
+          <div className="graphhistory__item__capturediv" onClick={this._selectGraph} data-graph-id={graph.id} />
         </li>
       )
     });
 
     return (
-      <div className="graphlist">
-        <button onClick={GraphActions.createGraph}>Add</button>
-        <button onClick={this._deleteGraph}>Delete</button>
+      <div className="graphhistory">
         <ul>
           {graphComponents}
         </ul>

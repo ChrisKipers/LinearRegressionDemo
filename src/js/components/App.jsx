@@ -3,11 +3,14 @@ var _ = require('lodash');
 
 var Navbar = require('./Navbar.jsx');
 var GraphEditor = require('./GraphEditor.jsx');
-var GraphList = require('./GraphList.jsx');
+var GraphHistory = require('./GraphHistory.jsx');
+var Modal = require('./Modal.jsx');
 
 var GraphStore = require('../stores/GraphStore');
 var AppState = require('../stores/AppState');
 var LinearRegressionProcessStore = require('../stores/LinearRegressionProcessStore');
+
+var AppActions = require('../actions/AppActions');
 
 var App = React.createClass({
   getInitialState: function() {
@@ -22,17 +25,17 @@ var App = React.createClass({
     AppState.removeChangeListener(this.updateState);
   },
   render: function() {
-    var {graphs, appState: {currentGraphId, currentLineIndex}} = this.state;
+    var {graphs, appState: {currentGraphId}} = this.state;
     var currentGraph = _.findWhere(graphs, {id: currentGraphId});
-
+    var graphHistoryModal = this._getGraphHistoryModal();
     return (
       <div>
+        {graphHistoryModal}
         <Navbar />
         <side>
-          <GraphList graphs={graphs} currentGraphId={currentGraphId}/>
         </side>
         <main>
-          <GraphEditor graph={currentGraph} currentLineIndex={currentLineIndex}/>
+          <GraphEditor graph={currentGraph} />
         </main>
       </div>
     );
@@ -46,6 +49,19 @@ var App = React.createClass({
       appState: AppState.getState(),
       processingGraphIds: LinearRegressionProcessStore.getIdsOfGraphsBeingProcessed()
     };
+  },
+  _getGraphHistoryModal() {
+    var {graphs, appState: {currentGraphId, showGraphHistory}} = this.state;
+    if(showGraphHistory) {
+      return (
+        <Modal header="graphs" onClose={this._closeHistoryModal}>
+          <GraphHistory graphs={graphs} currentGraphId={currentGraphId}/>
+        </Modal>
+      );
+    }
+  },
+  _closeHistoryModal() {
+    AppActions.setGraphHistoryOpenState(false);
   }
 });
 
