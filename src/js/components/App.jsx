@@ -22,15 +22,17 @@ var App = React.createClass({
     AppState.removeChangeListener(this.updateState);
   },
   render: function() {
-    var currentGraph = _.findWhere(this.state.graphs, {id: this.state.currentGraphId});
+    var {graphs, appState: {currentGraphId, currentLineIndex}} = this.state;
+    var currentGraph = _.findWhere(graphs, {id: currentGraphId});
+
     return (
       <div>
         <Navbar />
         <side>
-          <GraphList graphs={this.state.graphs} currentGraphId={this.state.currentGraphId}/>
+          <GraphList graphs={graphs} currentGraphId={currentGraphId}/>
         </side>
         <main>
-          <GraphEditor graph={currentGraph} currentLineIndex={this.state.currentLineIndex}/>
+          <GraphEditor graph={currentGraph} currentLineIndex={currentLineIndex}/>
         </main>
       </div>
     );
@@ -41,8 +43,7 @@ var App = React.createClass({
   _getState: function() {
     return {
       graphs: GraphStore.getGraphs(),
-      currentGraphId: AppState.getCurrentGraphId(),
-      currentLineIndex: AppState.getCurrentLineIndex(),
+      appState: AppState.getState(),
       processingGraphIds: LinearRegressionProcessStore.getIdsOfGraphsBeingProcessed()
     };
   }

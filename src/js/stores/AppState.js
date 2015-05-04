@@ -10,15 +10,11 @@ var Constants = require('../Constants');
 
 var GraphStore = require('./GraphStore');
 
-var currentGraphId, currentLineIndex;
-
+var state = {};
 
 var AppState = assign({}, EventEmitter.prototype, {
-  getCurrentGraphId: function() {
-    return currentGraphId;
-  },
-  getCurrentLineIndex: function () {
-    return currentLineIndex;
+  getState: function() {
+    return state;
   },
   emitChange: function () {
     this.emit(CHANGE_EVENT);
@@ -37,23 +33,23 @@ var AppState = assign({}, EventEmitter.prototype, {
       case Constants.ACTIONS.ADD_GRAPH:
         AppDispatcher.waitFor[GraphStore.dispatcherIndex];
         var graphs = GraphStore.getGraphs();
-        var newGraph = graphs[graphs.length - 1];
-        currentGraphId = newGraph.id;
+        var newGraph = _.last(graphs);
+        state.currentGraphId = newGraph.id;
         setCurrentLineIndex();
         AppState.emitChange();
         break;
       case Constants.ACTIONS.REMOVE_GRAPH:
         AppDispatcher.waitFor[GraphStore.dispatcherIndex];
         var nextCurrentGraphId = getCurrentGraphIdAfterRemoveEvent();
-        var shouldEmitChange = nextCurrentGraphId !== currentGraphId;
-        currentGraphId = nextCurrentGraphId;
+        var shouldEmitChange = nextCurrentGraphId !== state.currentGraphId;
+        state.currentGraphId = nextCurrentGraphId;
         setCurrentLineIndex();
         if (shouldEmitChange) {
           AppState.emitChange();
         }
         break;
       case Constants.ACTIONS.SELECT_GRAPH:
-        currentGraphId = action.payload.graphId;
+        state.currentGraphId = action.payload.graphId;
         setCurrentLineIndex();
         AppState.emitChange();
         break;
@@ -62,7 +58,7 @@ var AppState = assign({}, EventEmitter.prototype, {
         AppState.emitChange();
         break;
       case Constants.ACTIONS.SELECT_LINE:
-        currentLineIndex = action.payload.lineIndex;
+        state.currentLineIndex = action.payload.lineIndex;
         AppState.emitChange();
         break;
     }
@@ -89,11 +85,11 @@ function getCurrentGraphIdAfterRemoveEvent() {
 }
 
 function setCurrentLineIndex() {
-  var currentGraph = GraphStore.getGraphById(currentGraphId);
+  var currentGraph = GraphStore.getGraphById(state.currentGraphId);
   if (currentGraph && currentGraph.lines.length) {
-    currentLineIndex = currentGraph.lines.length - 1;
+    state.currentLineIndex = currentGraph.lines.length - 1;
   } else {
-    currentLineIndex = null;
+    state.currentLineIndex = null;
   }
 }
 
