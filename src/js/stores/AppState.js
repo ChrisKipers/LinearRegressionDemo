@@ -70,10 +70,10 @@ var AppState = assign({}, EventEmitter.prototype, {
 
 function getCurrentGraphIdAfterRemoveEvent() {
   var graphs = GraphStore.getGraphs();
-  var currentGraph = GraphStore.getGraphById(currentGraphId);
+  var currentGraph = GraphStore.getGraphById(state.currentGraphId);
 
   if (currentGraph) {
-    return currentGraphId;
+    return state.currentGraphId;
   }
 
   if(graphs.length) {
