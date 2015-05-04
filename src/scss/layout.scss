@@ -1,0 +1,11 @@
+@import 'foundation';
+
+side {
+  @extend .large-3;
+  @extend .columns;
+}
+
+main {
+  @extend .large-9;
+  @extend .columns;
+}

@@ -5,7 +5,7 @@ var Point = React.createClass({
     var x = this.props.xPos;
     var y = this.props.yPos;
     return (
-      <circle cx={x} cy={y} r={this.props.radius} stroke="black" stroke-width="1" fill="red" />
+      <circle cx={x} cy={y} r={this.props.radius} stroke="red" stroke-width="1" fill="red" />
     );
   }
 });

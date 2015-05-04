@@ -1,0 +1,10 @@
+@import 'foundation';
+
+.navbar {
+  @extend .top-bar;
+
+  &__title {
+    color: #FFFFFF;
+    padding-left: 0.9375em;
+  }
+}

@@ -1,40 +1,52 @@
 var React = require('react');
-var Graph = require('./Graph.jsx');
+var _ = require('lodash');
+
+var Navbar = require('./Navbar.jsx');
+var GraphEditor = require('./GraphEditor.jsx');
 var GraphList = require('./GraphList.jsx');
 
 var Constants = require('../Constants');
 
 var GraphStore = require('../stores/GraphStore');
-
+var AppState = require('../stores/AppState');
+var LinearRegressionProcessStore = require('../stores/LinearRegressionProcessStore');
 
 var App = React.createClass({
   getInitialState: function() {
-    return {
-      graphs: GraphStore.getGraphs()
-    };
+    return this._getState();
   },
   componentDidMount: function () {
-    GraphStore.addChangeListener(this.updateGraphs);
+    GraphStore.addChangeListener(this.updateState);
+    AppState.addChangeListener(this.updateState);
   },
   componentWillUnmount: function() {
-    GraphStore.removeChangeListener(this.updateGraphs);
+    GraphStore.removeChangeListener(this.updateState);
+    AppState.removeChangeListener(this.updateState);
   },
   render: function() {
-    var {CIRCLE_RADIUS, GRAPH_WIDTH, GRAPH_HEIGHT} = Constants.DIMENSIONS;
+    var currentGraph = _.findWhere(this.state.graphs, {id: this.state.currentGraphId});
     return (
       <div>
-        <GraphList graphs={this.state.graphs} width={200} height={100} radius={5}/>
-        <button onClick={this._generateLinearRegression}>Click me!!!</button>
+        <Navbar />
+        <side>
+          <GraphList graphs={this.state.graphs} width={200} height={100} radius={5} currentGraphId={this.state.currentGraphId}/>
+        </side>
+        <main>
+          <GraphEditor graph={currentGraph} currentLineIndex={this.state.currentLineIndex}/>
+        </main>
       </div>
     );
   },
-  updateGraphs: function() {
-    this.setState({graphs: GraphStore.getGraphs()});
+  updateState: function() {
+    this.setState(this._getState());
   },
-  _generateLinearRegression: function () {
-    var worker = new Worker('/src/js/workers/LinearRegressionCalculator.js');
-    worker.onmessage = (results) => console.log(results);
-    worker.postMessage("hi")
+  _getState: function() {
+    return {
+      graphs: GraphStore.getGraphs(),
+      currentGraphId: AppState.getCurrentGraphId(),
+      currentLineIndex: AppState.getCurrentLineIndex(),
+      processingGraphIds: LinearRegressionProcessStore.getIdsOfGraphsBeingProcessed()
+    };
   }
 });
 

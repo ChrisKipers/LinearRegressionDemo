@@ -1,0 +1,15 @@
+@import '../variables';
+
+.graphlist {
+
+  &__item {
+    padding: 10px;
+    &:hover {
+      background: $hover-and-selected-color;
+    }
+
+    &--selected {
+      background: $hover-and-selected-color;
+    }
+  }
+}

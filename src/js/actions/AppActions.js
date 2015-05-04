@@ -9,6 +9,14 @@ var AppActions = {
         graphId: graphId
       }
     });
+  },
+  selectLine: function(lineIndex) {
+    AppDispatcher.dispatch({
+      actionType: Constants.ACTIONS.SELECT_LINE,
+      payload: {
+        lineIndex: lineIndex
+      }
+    });
   }
 };
 

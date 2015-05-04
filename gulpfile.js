@@ -3,10 +3,13 @@ var gulp = require('gulp'),
   browserify = require('browserify'),
   reactify = require('reactify'),
   livereload = require('gulp-livereload'),
-  babelify = require("babelify");
+  babelify = require("babelify"),
+  sass = require('gulp-sass'),
+  concatCss = require('gulp-concat-css'),
+  sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('browserify', function () {
-  browserify({
+  return browserify({
     entries: ['./src/js/main.js'], // Only need initial file, browserify finds the deps
     transform: [babelify], // We want to convert JSX to normal javascript
     debug: true, // Gives us sourcemapping
@@ -17,10 +20,20 @@ gulp.task('browserify', function () {
     .pipe(livereload());
 });
 
-gulp.task('watch', ['browserify'], function () {
+gulp.task('sass', function () {
+  return gulp.src('./src/**/*.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass({includePaths: ['node_modules/foundation/scss']}))
+    .pipe(sourcemaps.write())
+    .pipe(concatCss('bundle.css'))
+    .pipe(gulp.dest('./dist/css'));
+});
+
+gulp.task('watch', ['browserify', 'sass'], function () {
   livereload.listen();
   gulp.watch('./src/**/*.js', ['browserify']);
   gulp.watch('./src/**/*.jsx', ['browserify']);
+  gulp.watch('./src/**/*.scss', ['sass']);
 });
 
 gulp.task('default', ['watch']);
