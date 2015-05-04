@@ -11,24 +11,9 @@ var EditableGraph = React.createClass({
     );
   },
   _addPoint: function(e) {
-    var {offsetLeft, offsetTop} = this._getParentOffset();
-    var xPos = e.pageX - offsetLeft;
-    var yPos = e.pageY - offsetTop;
-    var xPer = xPos / this.props.width;
-    var yPer = (this.props.height - yPos) / this.props.height;
-    console.log(xPer, yPer);
-    GraphActions.createPoint(this.props.graph.id, xPer, yPer);
-  },
-  _getParentOffset: function() {
-    var offsetLeft = 0;
-    var offsetTop = 0;
-    var currentElement = this.getDOMNode();
-    while(currentElement) {
-      offsetLeft += currentElement.offsetLeft;
-      offsetTop += currentElement.offsetTop;
-      currentElement = currentElement.offsetParent;
-    }
-    return {offsetLeft, offsetTop};
+    var xPos = e.xAxis[0].value;
+    var yPos = e.yAxis[0].value;
+    GraphActions.createPoint(this.props.graph.id, xPos, yPos);
   }
 });
 

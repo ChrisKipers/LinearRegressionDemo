@@ -4,6 +4,9 @@
 
   &__item {
     padding: 10px;
+    > div {
+      height: $graphlist__item-height;
+    }
     &:hover {
       background: $hover-and-selected-color;
     }

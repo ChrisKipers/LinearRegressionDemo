@@ -1,6 +1,6 @@
-var RATE = 0.01;
-var REPORT_EVER_N_ITERATION = 1000;
-var MAX_ITERATIONS = 10000;
+var RATE = 0.0001;
+var REPORT_EVER_N_ITERATION = 10000;
+var MAX_ITERATIONS = 100000;
 
 this.onmessage = function (e) {
   var message = JSON.parse(e.data);

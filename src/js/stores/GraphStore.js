@@ -65,7 +65,13 @@ function createNewGraph() {
   var newGraph = {
     id: nextGraphId++,
     points: [],
-    lines: []
+    lines: [],
+    chartInfo: {
+      minX: 0,
+      maxX: 100,
+      minY: 0,
+      maxY: 100
+    }
   };
   return newGraph;
 }
