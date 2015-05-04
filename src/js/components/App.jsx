@@ -5,8 +5,6 @@ var Navbar = require('./Navbar.jsx');
 var GraphEditor = require('./GraphEditor.jsx');
 var GraphList = require('./GraphList.jsx');
 
-var Constants = require('../Constants');
-
 var GraphStore = require('../stores/GraphStore');
 var AppState = require('../stores/AppState');
 var LinearRegressionProcessStore = require('../stores/LinearRegressionProcessStore');
@@ -29,7 +27,7 @@ var App = React.createClass({
       <div>
         <Navbar />
         <side>
-          <GraphList graphs={this.state.graphs} width={200} height={100} radius={5} currentGraphId={this.state.currentGraphId}/>
+          <GraphList graphs={this.state.graphs} currentGraphId={this.state.currentGraphId}/>
         </side>
         <main>
           <GraphEditor graph={currentGraph} currentLineIndex={this.state.currentLineIndex}/>

@@ -14,11 +14,12 @@ var GraphList = React.createClass({
     var graphComponents = this.props.graphs.map((graph) => {
       var classes = cx({
         'graphlist__item': true,
-        'graphlist__item--selected': graph.id === this.props.currentLineIndex
+        'graphlist__item--selected': graph.id === this.props.currentGraphId
       });
       return (
-        <li key={graph.id} onClick={this._selectGraph} data-graph-id={graph.id} className={classes}>
+        <li key={graph.id}  className={classes}>
           <Graph graph={graph} {...dimensions}/>
+          <div className="graphlist__item__capturediv" onClick={this._selectGraph} data-graph-id={graph.id} />
         </li>
       )
     });

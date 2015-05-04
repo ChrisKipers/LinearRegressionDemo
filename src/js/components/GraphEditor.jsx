@@ -4,19 +4,16 @@ var InputGraph = require('./InputGraph.jsx');
 
 var LineList = require('./LineList.jsx');
 
-var Constants = require('../Constants');
-
 var LinearRegressionProcessActions = require('../actions/LinearRegressionProcessActions');
 var AppActions = require('../actions/AppActions');
 
 var GraphEditor = React.createClass({
-  render: function() {
-    var {CIRCLE_RADIUS, GRAPH_WIDTH, GRAPH_HEIGHT} = Constants.DIMENSIONS;
+  render: function () {
     return (
-      <div>
-        <button onClick={this._generateLinearRegression}>Click me!!!</button>
+      <div className="grapheditor">
+        <button onClick={this._generateLinearRegression}>Generate Best Fit Line</button>
         <div>
-          <InputGraph graph={this.props.graph} lineIndex={this.props.currentLineIndex} width={GRAPH_WIDTH} height={GRAPH_HEIGHT} radius={CIRCLE_RADIUS} />
+          <InputGraph graph={this.props.graph} lineIndex={this.props.currentLineIndex} />
         </div>
         <LineList lines={this.props.graph.lines} currentLineIndex={this.props.currentLineIndex} onClick={this._selectLine}/>
       </div>

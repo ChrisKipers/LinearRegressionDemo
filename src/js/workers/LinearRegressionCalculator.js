@@ -1,14 +1,14 @@
 var RATE = 0.0001;
-var REPORT_EVER_N_ITERATION = 10000;
-var MAX_ITERATIONS = 100000;
+var REPORT_EVER_N_ITERATION = 100000;
 
 this.onmessage = function (e) {
   var message = JSON.parse(e.data);
   var points = message.points;
   var convergence = false;
   var iteration = 0;
-  var y = x = 0;
-  while(!convergence && iteration < MAX_ITERATIONS) {
+  var y = 0,
+    x = 0;
+  while(!convergence) {
     var hypothesisFn = createHypothesisFunction(y, x);
     var newY = calculateNewVariable(constantDerivativeFn, hypothesisFn, points, y);
     var newX = calculateNewVariable(slopeDerivitaveFn, hypothesisFn, points, x);

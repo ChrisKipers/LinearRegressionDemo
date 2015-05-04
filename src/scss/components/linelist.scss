@@ -1,0 +1,10 @@
+@import '../variables';
+
+.linelist {
+  &__item {
+    // A hack to override foundation background
+   &--selected, &--selected:nth-of-type(even), &--selected:nth-of-type(odd) {
+      background: red;
+    }
+  }
+}

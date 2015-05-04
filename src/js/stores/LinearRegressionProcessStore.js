@@ -33,6 +33,7 @@ var LinearRegressionProcessStore = assign({}, EventEmitter.prototype, {
   dispatcherIndex: AppDispatcher.register(function (action) {
     switch (action.actionType) {
       case Constants.ACTIONS.PROCESS_GRAPH:
+        AppDispatcher.waitFor([GraphStore.dispatcherIndex]);
         startWorkerForGraph(action.payload.graphId);
         LinearRegressionProcessStore.emitChange();
         break;

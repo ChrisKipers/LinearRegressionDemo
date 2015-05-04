@@ -55,6 +55,11 @@ var GraphStore = assign({}, EventEmitter.prototype, {
         graph.lines.push(line);
         GraphStore.emitChange();
         break;
+      case Constants.ACTIONS.PROCESS_GRAPH:
+        var graph = GraphStore.getGraphById(action.payload.graphId);
+        graph.lines = [];
+        GraphStore.emitChange();
+        break;
     }
 
     return true;
