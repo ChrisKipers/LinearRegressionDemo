@@ -1,22 +1,12 @@
-var AppDispatcher = require('../AppDispatcher');
-var Constants = require('../Constants');
+var dispatch = require('./dispatch');
+var {ACTIONS} = require('../Constants');
 
 var AppActions = {
   selectGraph(graphId) {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.SELECT_GRAPH,
-      payload: {
-        graphId: graphId
-      }
-    });
+    dispatch(ACTIONS.SELECT_GRAPH, {graphId});
   },
   setGraphHistoryOpenState(isOpen) {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.SET_GRAPH_HISTORY_OPEN_STATE,
-      payload: {
-        isOpen: isOpen
-      }
-    });
+    dispatch(ACTIONS.SET_GRAPH_HISTORY_OPEN_STATE, {isOpen});
   }
 };
 

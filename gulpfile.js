@@ -22,7 +22,7 @@ gulp.task('browserify', function () {
 gulp.task('sass', function () {
   return gulp.src('./src/**/*.scss')
     .pipe(sourcemaps.init())
-    .pipe(sass({includePaths: ['node_modules/foundation/scss']}))
+    .pipe(sass({includePaths: ['node_modules/foundation/scss', 'node_modules/bootstrap-sass/assets/stylesheets']}))
     .pipe(sourcemaps.write())
     .pipe(concatCss('bundle.css'))
     .pipe(gulp.dest('./dist/css'));

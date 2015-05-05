@@ -11,7 +11,7 @@ this.onmessage = function (e) {
   while(!convergence) {
     var hypothesisFn = createHypothesisFunction(y, x);
     var newY = calculateNewVariable(constantDerivativeFn, hypothesisFn, points, y);
-    var newX = calculateNewVariable(slopeDerivitaveFn, hypothesisFn, points, x);
+    var newX = calculateNewVariable(slopeDerivativeFn, hypothesisFn, points, x);
 
     convergence = newY === y && newX === x;
     y = newY;
@@ -49,13 +49,13 @@ function constantDerivativeFn(hypFn, y, x) {
   return hypFn(x) - y
 }
 
-function slopeDerivitaveFn(hypFn, y, x) {
+function slopeDerivativeFn(hypFn, y, x) {
   return (hypFn(x) - y) * x;
 }
 
-function calculateNewVariable(derivitateFunction, hypothesisFn, points, orgVal) {
+function calculateNewVariable(derivativeFunction, hypothesisFn, points, orgVal) {
   var constantCalcs = points.map(function(point) {
-    return derivitateFunction(hypothesisFn, point.yPos, point.xPos);
+    return derivativeFunction(hypothesisFn, point.yPos, point.xPos);
   });
   var constantSum = sumAndDivideByCount(constantCalcs);
   return orgVal - RATE * constantSum;

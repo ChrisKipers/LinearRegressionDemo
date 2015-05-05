@@ -1,22 +1,12 @@
-var AppDispatcher = require('../AppDispatcher');
-var Constants = require('../Constants');
+var dispatch = require('./dispatch');
+var {ACTIONS} = require('../Constants');
 
 var LinearRegressionProcessActions = {
   processGraph(graphId) {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.PROCESS_GRAPH,
-      payload: {
-        graphId: graphId
-      }
-    });
+    dispatch(ACTIONS.PROCESS_GRAPH, {graphId});
   },
   processingComplete(graphId) {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.PROCESS_GRAPH_COMPLETE,
-      payload: {
-        graphId: graphId
-      }
-    });
+    dispatch(ACTIONS.PROCESS_GRAPH_COMPLETE, {graphId});
   }
 };
 

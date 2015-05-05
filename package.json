@@ -1,12 +1,12 @@
 {
   "name": "LinearRegression",
   "version": "0.0.0",
-  "description": "",
+  "description": "A Linear Regression Demoo App",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Chris Kipers",
   "license": "ISC",
   "devDependencies": {
     "babelify": "^6.0.2",
@@ -22,12 +22,13 @@
     "flux": "^2.0.1",
     "lodash": "^3.3.1",
     "object-assign": "^2.0.0",
-    "react": "^0.12.2",
+    "react": "^0.13.0",
     "react-highcharts": "0.0.7",
     "foundation": "^4.2.1-1",
     "pubsub-js": "^1.5.2",
     "react-responsive-mixin": "^0.3.3",
-    "react-foundation-apps": "^0.6.0",
-    "purecss": "^0.6.0"
+    "purecss": "^0.6.0",
+    "react-bootstrap": "^0.21.2",
+    "bootstrap-sass": "^3.3.4"
   }
 }

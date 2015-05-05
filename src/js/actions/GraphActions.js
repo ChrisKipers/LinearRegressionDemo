@@ -1,48 +1,24 @@
-var AppDispatcher = require('../AppDispatcher');
-var Constants = require('../Constants');
+var dispatch = require('./dispatch');
+var {ACTIONS} = require('../Constants');
 
 var GraphActions = {
   createPoint(graphId, xPos, yPos) {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.ADD_POINT,
-      payload: {
-        graphId: graphId,
-        xPos: xPos,
-        yPos: yPos
-      }
-    });
+    var payload = {graphId, xPos, yPos};
+    dispatch(ACTIONS.ADD_POINT, payload);
   },
   addLine(graphId, constant, slope) {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.ADD_LINE,
-      payload: {
-        graphId: graphId,
-        constant: constant,
-        slope: slope
-      }
-    });
+    var payload = {graphId, constant, slope};
+    dispatch(ACTIONS.ADD_LINE, payload);
   },
   createGraph() {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.ADD_GRAPH
-    });
+    dispatch(ACTIONS.ADD_GRAPH);
   },
   removeGraph(graphId) {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.REMOVE_GRAPH,
-      payload: {
-        graphId: graphId
-      }
-    });
+    dispatch(ACTIONS.REMOVE_GRAPH, {graphId});
   },
   setGraphProperties(graphId, properties) {
-    AppDispatcher.dispatch({
-      actionType: Constants.ACTIONS.SET_GRAPH_PROPERTIES,
-      payload: {
-        graphId: graphId,
-        properties: properties
-      }
-    });
+    var payload = {graphId, properties};
+    dispatch(ACTIONS.SET_GRAPH_PROPERTIES, payload);
   }
 };
 
