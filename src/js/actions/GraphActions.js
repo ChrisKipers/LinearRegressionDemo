@@ -2,7 +2,7 @@ var AppDispatcher = require('../AppDispatcher');
 var Constants = require('../Constants');
 
 var GraphActions = {
-  createPoint: function(graphId, xPos, yPos) {
+  createPoint(graphId, xPos, yPos) {
     AppDispatcher.dispatch({
       actionType: Constants.ACTIONS.ADD_POINT,
       payload: {
@@ -12,7 +12,7 @@ var GraphActions = {
       }
     });
   },
-  addLine: function(graphId, constant, slope) {
+  addLine(graphId, constant, slope) {
     AppDispatcher.dispatch({
       actionType: Constants.ACTIONS.ADD_LINE,
       payload: {
@@ -22,16 +22,25 @@ var GraphActions = {
       }
     });
   },
-  createGraph: function() {
+  createGraph() {
     AppDispatcher.dispatch({
       actionType: Constants.ACTIONS.ADD_GRAPH
     });
   },
-  removeGraph: function(graphId) {
+  removeGraph(graphId) {
     AppDispatcher.dispatch({
       actionType: Constants.ACTIONS.REMOVE_GRAPH,
       payload: {
         graphId: graphId
+      }
+    });
+  },
+  setGraphProperties(graphId, properties) {
+    AppDispatcher.dispatch({
+      actionType: Constants.ACTIONS.SET_GRAPH_PROPERTIES,
+      payload: {
+        graphId: graphId,
+        properties: properties
       }
     });
   }

@@ -4,7 +4,7 @@ var AppActions = require('../actions/AppActions');
 var GraphActions = require('../actions/GraphActions');
 
 var NavBar = React.createClass({
-  render: function() {
+  render() {
     return (
       <nav className="navbar">
         <span className="navbar__title">Linear Regression Demo</span>

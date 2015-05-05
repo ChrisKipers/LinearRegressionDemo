@@ -13,18 +13,18 @@ var LinearRegressionProcessStore = require('../stores/LinearRegressionProcessSto
 var AppActions = require('../actions/AppActions');
 
 var App = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return this._getState();
   },
-  componentDidMount: function () {
+  componentDidMount() {
     GraphStore.addChangeListener(this.updateState);
     AppState.addChangeListener(this.updateState);
   },
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     GraphStore.removeChangeListener(this.updateState);
     AppState.removeChangeListener(this.updateState);
   },
-  render: function() {
+  render() {
     var {graphs, appState: {currentGraphId}} = this.state;
     var currentGraph = _.findWhere(graphs, {id: currentGraphId});
     var graphHistoryModal = this._getGraphHistoryModal();
@@ -32,18 +32,14 @@ var App = React.createClass({
       <div>
         {graphHistoryModal}
         <Navbar />
-        <side>
-        </side>
-        <main>
-          <GraphEditor graph={currentGraph} />
-        </main>
+        <GraphEditor graph={currentGraph} />
       </div>
     );
   },
-  updateState: function() {
+  updateState() {
     this.setState(this._getState());
   },
-  _getState: function() {
+  _getState() {
     return {
       graphs: GraphStore.getGraphs(),
       appState: AppState.getState(),

@@ -2,7 +2,7 @@ var AppDispatcher = require('../AppDispatcher');
 var Constants = require('../Constants');
 
 var LinearRegressionProcessActions = {
-  processGraph: function(graphId) {
+  processGraph(graphId) {
     AppDispatcher.dispatch({
       actionType: Constants.ACTIONS.PROCESS_GRAPH,
       payload: {
@@ -10,7 +10,7 @@ var LinearRegressionProcessActions = {
       }
     });
   },
-  processingComplete: function(graphId) {
+  processingComplete(graphId) {
     AppDispatcher.dispatch({
       actionType: Constants.ACTIONS.PROCESS_GRAPH_COMPLETE,
       payload: {

@@ -1,7 +1,7 @@
 var React = require('react');
 
 var Modal = React.createClass({
-  render: function () {
+  render() {
     return (
       <div className="modalmask">
         <div className="modal">

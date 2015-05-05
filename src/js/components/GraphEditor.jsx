@@ -2,32 +2,36 @@ var React = require('react');
 var _ = require('lodash');
 
 var InputGraph = require('./InputGraph.jsx');
-
 var LineInfo = require('./LineInfo.jsx');
+var GraphPropertiesInput = require('./GraphPropertiesInput.jsx');
 
 var LinearRegressionProcessActions = require('../actions/LinearRegressionProcessActions');
 var AppActions = require('../actions/AppActions');
 
 var GraphEditor = React.createClass({
-
-  render: function () {
+  render() {
     var lineComponent = this._getLineInfo();
     return (
       <div className="grapheditor">
-        <div>
-          <InputGraph graph={this.props.graph} lineIndex={this.props.currentLineIndex} />
-        </div>
-        <div>
-          <button onClick={this._generateLinearRegression}>Generate Best Fit Line</button>
-          <span>Best Fit Line:</span>{lineComponent}
-        </div>
+        <main>
+          <div>
+            <InputGraph graph={this.props.graph} />
+          </div>
+          <div>
+            <button onClick={this._generateLinearRegression}>Generate Best Fit Line</button>
+            <span>Best Fit Line:</span>{lineComponent}
+          </div>
+        </main>
+        <side>
+          <GraphPropertiesInput graph={this.props.graph}/>
+        </side>
       </div>
     );
   },
-  _generateLinearRegression: function () {
+  _generateLinearRegression() {
     LinearRegressionProcessActions.processGraph(this.props.graph.id);
   },
-  _selectLine: function ({currentTarget}) {
+  _selectLine({currentTarget}) {
     var lineIndex = parseInt(currentTarget.dataset.lineIndex);
     AppActions.selectLine(lineIndex);
   },

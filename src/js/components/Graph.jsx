@@ -3,15 +3,15 @@ var _ = require('lodash');
 var HighCharts = require('react-highcharts');
 
 var Graph = React.createClass({
-  render: function () {
+  render () {
     var chartConfig = this._getChartConfig();
     return (
       <HighCharts config={chartConfig} />
     );
   },
-  _getChartConfig: function() {
-    var graph = this.props.graph;
-    var pointsAsArrays = this.props.graph.points.map((point) => [point.xPos, point.yPos]);
+  _getChartConfig() {
+    var {graph:{chartInfo, points}} = this.props;
+    var pointsAsArrays = points.map((point) => [point.xPos, point.yPos]);
     var lineSeries = this._getLineSeries();
     var config = {
       chart: {
@@ -22,13 +22,22 @@ var Graph = React.createClass({
           click: this.props.onClick || _.identity
         }
       },
+      title: {
+        text: chartInfo.title
+      },
       yAxis: {
-        min: graph.chartInfo.minY,
-        max: graph.chartInfo.maxY
+        title: {
+          text: chartInfo.titleY
+        },
+        min: chartInfo.minY,
+        max: chartInfo.maxY
       },
       xAxis: {
-        min: graph.chartInfo.minX,
-        max: graph.chartInfo.maxX
+        title: {
+          text: chartInfo.titleX
+        },
+        min: chartInfo.minX,
+        max: chartInfo.maxX
       },
       series: [{
         data: pointsAsArrays,
@@ -42,7 +51,7 @@ var Graph = React.createClass({
 
     return config;
   },
-  _getLineSeries: function() {
+  _getLineSeries() {
     var graph = this.props.graph;
     var line = _.last(this.props.graph.lines);
     if (line) {

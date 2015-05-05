@@ -13,22 +13,22 @@ var GraphStore = require('./GraphStore');
 var state = {};
 
 var AppState = assign({}, EventEmitter.prototype, {
-  getState: function() {
+  getState() {
     return state;
   },
-  emitChange: function () {
+  emitChange() {
     this.emit(CHANGE_EVENT);
   },
 
-  addChangeListener: function (callback) {
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-  removeChangeListener: function (callback) {
+  removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  dispatcherIndex: AppDispatcher.register(function (action) {
+  dispatcherIndex: AppDispatcher.register((action) => {
     switch (action.actionType) {
       case Constants.ACTIONS.ADD_GRAPH:
         AppDispatcher.waitFor[GraphStore.dispatcherIndex];

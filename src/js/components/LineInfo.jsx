@@ -1,7 +1,7 @@
 var React = require('react');
 
 var LineInfo = React.createClass({
-  render: function () {
+  render() {
     var {constant, slope} = this.props.line;
     var lineFormula = `${constant} + ${slope}x`;
 

@@ -2,7 +2,7 @@ var AppDispatcher = require('../AppDispatcher');
 var Constants = require('../Constants');
 
 var AppActions = {
-  selectGraph: function(graphId) {
+  selectGraph(graphId) {
     AppDispatcher.dispatch({
       actionType: Constants.ACTIONS.SELECT_GRAPH,
       payload: {
@@ -10,7 +10,7 @@ var AppActions = {
       }
     });
   },
-  setGraphHistoryOpenState: function(isOpen) {
+  setGraphHistoryOpenState(isOpen) {
     AppDispatcher.dispatch({
       actionType: Constants.ACTIONS.SET_GRAPH_HISTORY_OPEN_STATE,
       payload: {

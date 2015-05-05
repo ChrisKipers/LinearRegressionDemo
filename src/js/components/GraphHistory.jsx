@@ -9,7 +9,7 @@ var GraphActions = require('../actions/GraphActions');
 var AppActions = require('../actions/AppActions');
 
 var GraphList = React.createClass({
-  render: function() {
+  render() {
     var graphComponents = this.props.graphs.map((graph) => {
       var classes = cx({
         'graphhistory__item': true,
@@ -31,11 +31,11 @@ var GraphList = React.createClass({
       </div>
     );
   },
-  _selectGraph: function({currentTarget}) {
+  _selectGraph({currentTarget}) {
     var graphId = currentTarget.dataset.graphId;
     AppActions.selectGraph(parseInt(graphId));
   },
-  _deleteGraph: function() {
+  _deleteGraph() {
     GraphActions.removeGraph(this.props.currentGraphId);
   }
 });
