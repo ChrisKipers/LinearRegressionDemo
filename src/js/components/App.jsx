@@ -4,7 +4,7 @@ var _ = require('lodash');
 var Navbar = require('./Navbar.jsx');
 var GraphEditor = require('./GraphEditor.jsx');
 var GraphHistory = require('./GraphHistory.jsx');
-var Modal = require('./Modal.jsx');
+var {Modal} = require('react-bootstrap');
 
 var GraphStore = require('../stores/GraphStore');
 var AppState = require('../stores/AppState');
@@ -50,7 +50,7 @@ var App = React.createClass({
     var {graphs, appState: {currentGraphId, showGraphHistory}} = this.state;
     if(showGraphHistory) {
       return (
-        <Modal header="graphs" onClose={this._closeHistoryModal}>
+        <Modal title="Graphs" onRequestHide={this._closeHistoryModal}>
           <GraphHistory graphs={graphs} currentGraphId={currentGraphId}/>
         </Modal>
       );
