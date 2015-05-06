@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('lodash');
 
 var AppDispatcher = require('../AppDispatcher');
@@ -31,14 +33,18 @@ var AppState = assign({}, EventEmitter.prototype, {
   dispatcherIndex: AppDispatcher.register((action) => {
     switch (action.actionType) {
       case Constants.ACTIONS.ADD_GRAPH:
+        /*eslint-disable */
         AppDispatcher.waitFor[GraphStore.dispatcherIndex];
+        /*eslint-enabled */
         var graphs = GraphStore.getGraphs();
         var newGraph = _.last(graphs);
         state.currentGraphId = newGraph.id;
         AppState.emitChange();
         break;
       case Constants.ACTIONS.REMOVE_GRAPH:
+        /*eslint-disable */
         AppDispatcher.waitFor[GraphStore.dispatcherIndex];
+        /*eslint-enabled */
         var nextCurrentGraphId = getCurrentGraphIdAfterRemoveEvent();
         var shouldEmitChange = nextCurrentGraphId !== state.currentGraphId;
         state.currentGraphId = nextCurrentGraphId;

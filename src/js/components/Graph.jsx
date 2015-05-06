@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('react');
 var _ = require('lodash');
 var HighCharts = require('react-highcharts');
@@ -10,7 +12,7 @@ var Graph = React.createClass({
     );
   },
   _getChartConfig() {
-    var {graph:{chartInfo, points}} = this.props;
+    var {graph: {chartInfo, points}} = this.props;
     var pointsAsArrays = points.map((point) => [point.xPos, point.yPos]);
     var lineSeries = this._getLineSeries();
     var config = {
@@ -55,7 +57,7 @@ var Graph = React.createClass({
     var graph = this.props.graph;
     var line = _.last(this.props.graph.lines);
     if (line) {
-      var linePointOneY= getValueOnLine(line.constant, line.slope, graph.chartInfo.minX);
+      var linePointOneY = getValueOnLine(line.constant, line.slope, graph.chartInfo.minX);
       var linePointTwoY = getValueOnLine(line.constant, line.slope, graph.chartInfo.maxX);
 
       return {

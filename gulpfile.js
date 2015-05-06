@@ -5,7 +5,8 @@ var gulp = require('gulp'),
   babelify = require("babelify"),
   sass = require('gulp-sass'),
   concatCss = require('gulp-concat-css'),
-  sourcemaps = require('gulp-sourcemaps');
+  sourcemaps = require('gulp-sourcemaps'),
+  eslint = require('gulp-eslint');
 
 gulp.task('browserify', function () {
   return browserify({
@@ -28,10 +29,15 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./dist/css'));
 });
 
+gulp.task('lint', function () {
+  return gulp.src('./src/js/**/*.js*')
+    .pipe(eslint())
+    .pipe(eslint.format());
+});
+
 gulp.task('watch', ['browserify', 'sass'], function () {
   livereload.listen();
-  gulp.watch('./src/**/*.js', ['browserify']);
-  gulp.watch('./src/**/*.jsx', ['browserify']);
+  gulp.watch('./src/**/*.js*', ['lint','browserify']);
   gulp.watch('./src/**/*.scss', ['sass']);
 });
 

@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('lodash');
 
 function numberLinkState (propertyName) {
@@ -10,7 +12,7 @@ function numberLinkState (propertyName) {
         });
       }
     }
-  }
+  };
 }
 
 module.exports = {

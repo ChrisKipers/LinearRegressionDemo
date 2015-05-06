@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   ACTIONS: {
     ADD_POINT: 'ADD_POINT',

@@ -1,7 +1,8 @@
+'use strict';
+
 var AppDispatcher = require('../AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-var _ = require('lodash');
 
 var GraphStore = require('./GraphStore');
 
@@ -33,7 +34,9 @@ var LinearRegressionProcessStore = assign({}, EventEmitter.prototype, {
   dispatcherIndex: AppDispatcher.register((action) => {
     switch (action.actionType) {
       case Constants.ACTIONS.PROCESS_GRAPH:
+        /*eslint-disable */
         AppDispatcher.waitFor([GraphStore.dispatcherIndex]);
+        /*eslint-enabled */
         startWorkerForGraph(action.payload.graphId);
         LinearRegressionProcessStore.emitChange();
         break;
@@ -72,8 +75,10 @@ function startWorkerForGraph(graphId) {
 }
 
 function terminateAndRemoveProcessForGraph(graphId) {
-  workerByGraphId[graphId] && workerByGraphId[graphId].terminate();
-  delete workerByGraphId[graphId];
+  if (workerByGraphId[graphId]) {
+    workerByGraphId[graphId].terminate();
+    delete workerByGraphId[graphId];
+  }
 }
 
 module.exports = LinearRegressionProcessStore;

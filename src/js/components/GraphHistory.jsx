@@ -1,7 +1,7 @@
+'use strict';
+
 var React = require('react');
 var cx = require('react/addons').addons.classSet;
-
-var _ = require('lodash');
 
 var Graph = require('./Graph.jsx');
 
@@ -16,11 +16,11 @@ var GraphList = React.createClass({
         'graphhistory__item--selected': graph.id === this.props.currentGraphId
       });
       return (
-        <li key={graph.id}  className={classes}>
+        <li key={graph.id} className={classes}>
           <Graph graph={graph} />
           <div className="graphhistory__item__capturediv" onClick={this._selectGraph} data-graph-id={graph.id} />
         </li>
-      )
+      );
     });
 
     return (

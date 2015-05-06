@@ -1,3 +1,5 @@
+'use strict';
+
 var RATE = 0.0001;
 var REPORT_EVER_N_ITERATION = 100000;
 
@@ -42,11 +44,11 @@ function sumAndDivideByCount(numbers) {
 function createHypothesisFunction(constant, slope) {
   return function (xPos) {
     return constant + slope * xPos;
-  }
+  };
 }
 
 function constantDerivativeFn(hypFn, y, x) {
-  return hypFn(x) - y
+  return hypFn(x) - y;
 }
 
 function slopeDerivativeFn(hypFn, y, x) {

@@ -1,3 +1,5 @@
+'use strict';
+
 var React = require('react');
 var _ = require('lodash');
 
@@ -46,9 +48,9 @@ var GraphEditor = React.createClass({
   _getLineInfo() {
     var mostAccurateLine = _.last(this.props.graph.lines);
     if (mostAccurateLine) {
-      return <LineInfo line={mostAccurateLine} />
+      return <LineInfo line={mostAccurateLine} />;
     } else {
-      return <span>Line not calculated</span>
+      return <span>Line not calculated</span>;
     }
   }
 });
