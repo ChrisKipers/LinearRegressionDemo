@@ -6,7 +6,8 @@ var gulp = require('gulp'),
   sass = require('gulp-sass'),
   concatCss = require('gulp-concat-css'),
   sourcemaps = require('gulp-sourcemaps'),
-  eslint = require('gulp-eslint');
+  eslint = require('gulp-eslint'),
+  babel = require('gulp-babel');
 
 gulp.task('browserify', function () {
   return browserify({
@@ -19,6 +20,14 @@ gulp.task('browserify', function () {
     .pipe(gulp.dest('./dist/js'))
     .pipe(livereload());
 });
+
+gulp.task('compileWorkers', function () {
+  return gulp.src('src/js/workers/*.js')
+    .pipe(babel())
+    .pipe(gulp.dest('dist/js/workers'));
+});
+
+gulp.task('compileJs', ['browserify', 'compileWorkers']);
 
 gulp.task('sass', function () {
   return gulp.src('./src/**/*.scss')
@@ -35,9 +44,9 @@ gulp.task('lint', function () {
     .pipe(eslint.format());
 });
 
-gulp.task('watch', ['browserify', 'sass'], function () {
+gulp.task('watch', ['compileJs', 'sass'], function () {
   livereload.listen();
-  gulp.watch('./src/**/*.js*', ['lint','browserify']);
+  gulp.watch('./src/**/*.js*', ['lint','compileJs']);
   gulp.watch('./src/**/*.scss', ['sass']);
 });
 

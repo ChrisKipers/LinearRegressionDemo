@@ -1,38 +1,33 @@
 'use strict';
+/*global onmessage:true*/
 
-var RATE = 0.0001;
-var REPORT_EVER_N_ITERATION = 100000;
+const RATE = 0.0001,
+  REPORT_EVER_N_ITERATION = 100000;
 
-this.onmessage = function (e) {
-  var message = JSON.parse(e.data);
-  var points = message.points;
-  var convergence = false;
-  var iteration = 0;
-  var y = 0,
-    x = 0;
+onmessage = function (e) {
+  const {points} = JSON.parse(e.data);
+  var convergence = false,
+    iteration = 0,
+    constant = 0,
+    slope = 0;
+
   while(!convergence) {
-    var hypothesisFn = createHypothesisFunction(y, x);
-    var newY = calculateNewVariable(constantDerivativeFn, hypothesisFn, points, y);
-    var newX = calculateNewVariable(slopeDerivativeFn, hypothesisFn, points, x);
+    let hypothesisFn = createHypothesisFunction(constant, slope);
+    let newConstant = calculateNewVariable(constantDerivativeFn, hypothesisFn, points, constant);
+    let newSlope = calculateNewVariable(slopeDerivativeFn, hypothesisFn, points, slope);
 
-    convergence = newY === y && newX === x;
-    y = newY;
-    x = newX;
+    convergence = newConstant === constant && newSlope === slope;
+    constant = newConstant;
+    slope = newSlope;
 
-    if (convergence) {
-      postLine(y, x, true);
-    } else if (iteration % REPORT_EVER_N_ITERATION === 0) {
-      postLine(y, x, false);
+    if (convergence || iteration % REPORT_EVER_N_ITERATION === 0) {
+      let response = {line: {constant: constant, slope: slope}, complete: convergence};
+      this.postMessage(JSON.stringify(response));
     }
-    iteration++;
 
+    iteration++;
   }
 };
-
-function postLine(constant, slope, complete) {
-  var message = {line: {constant: constant, slope: slope}, complete: complete};
-  this.postMessage(JSON.stringify(message));
-}
 
 function sumAndDivideByCount(numbers) {
   var total = numbers.reduce(function(sum, x) {

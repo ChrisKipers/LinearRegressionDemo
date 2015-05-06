@@ -59,7 +59,7 @@ function startWorkerForGraph(graphId) {
 
   var graph = GraphStore.getGraphById(graphId);
 
-  var worker = new Worker('/src/js/workers/LinearRegressionCalculator.js');
+  var worker = new Worker('/dist/js/workers/LinearRegressionCalculator.js');
 
   worker.onmessage = (results) => {
     var {line, complete} = JSON.parse(results.data);
